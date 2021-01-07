@@ -11,7 +11,7 @@ console.log(x.format('MMM, D, YYYY')) // Jan 7, 2021
 console.log(y.format('MMM, D, YYYY')) // Jan 12, 2021
 
 const z = new Instant('2021-01-07T11:17:42-00:00)
-console.log(instant.format('h:mm a')) // 11:17 am (if in GMT time zone)
+console.log(z.format('h:mm a')) // 11:17 am (if in GMT time zone)
 ```
 
 ## Formatting
