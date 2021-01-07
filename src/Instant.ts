@@ -6,12 +6,7 @@ type UnitPlural = `${UnitSingular}s`
 
 class Instant {
     constructor(datetime?: string) {
-        if (datetime) {
-            this.date = new Date(datetime)
-        } else {
-            this.date = new Date()
-            new Date()
-        }
+        this.date = new Date(datetime)
     }
 
     private date: Date
