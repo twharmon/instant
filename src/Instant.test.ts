@@ -9,7 +9,7 @@ function assert(iso: string, fmt: string, out: string) {
     })
 }
 
-describe('Instant', () => {
+describe('Instant formatting', () => {
     assert('2020-03-07T11:17:42-00:00', 'YYYY', '2020')
     assert('2020-03-07T11:17:42-00:00', 'YY', '20')
 
@@ -54,4 +54,37 @@ describe('Instant', () => {
     assert('2020-03-07T11:17:42-00:00', 'MMM D, YYYY', 'Mar 7, 2020')
     assert('2020-03-07T11:17:42.123-00:00', 'h:mm:ss.SSS a MMM D, YYYY', '5:17:42.123 am Mar 7, 2020')
     assert('2020-03-07T11:17:42.123-00:00', RFC3339, '2020-03-07T05:17:42.123-06:00')
+
+    // invalid
+    assert('foo', 'MMM D', 'Invalid Instant')
+})
+
+describe('Instant addition and subtraction', () => {
+    it('adds days', () => {
+        const a = new Instant('2020-03-07T11:17:42-00:00')
+        const b = a.plus(5, 'days')
+        expect(a.format('D')).to.equal('7')
+        expect(b.format('D')).to.equal('12')
+    })
+
+    it('subtracts weeks', () => {
+        const a = new Instant('2020-03-27T11:17:42-00:00')
+        const b = a.minus(2, 'weeks')
+        expect(a.format('D')).to.equal('27')
+        expect(b.format('D')).to.equal('13')
+    })
+
+    it('subtracts to start of day', () => {
+        const a = new Instant('2020-01-27T11:17:42-00:00')
+        const b = a.startOf('day')
+        expect(a.format('h')).to.equal('5')
+        expect(b.format('h')).to.equal('12')
+    })
+
+    it('isNaN when invalid', () => {
+        const a = new Instant('foo')
+        const b = a.startOf('day')
+        expect(a.format('h')).to.equal('Invalid Instant')
+        expect(b.format('h')).to.equal('Invalid Instant')
+    })
 })

@@ -13,7 +13,7 @@ export function formatMonth(number: number): string {
         case 10: return 'November'
         case 11: return 'December'
     }
-    throw Error('invalid month')
+    return 'Invalid month'
 }
 
 export function pad(num: number, len: number): string {

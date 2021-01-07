@@ -20,6 +20,7 @@ class Instant {
     }
 
     format(fmt: string): string {
+        if (isNaN(this.date.getTime())) return 'Invalid Instant'
         let out = ''
         while (fmt.length > 0) {
             let found = false
@@ -42,22 +43,30 @@ class Instant {
     plus(amount: number, units: UnitSingular | UnitPlural): Instant {
         let unixMs = this.unix()
         switch (units) {
-            case 'millisecond' || 'milliseconds':
+            case 'millisecond':
+            case 'milliseconds':
                 unixMs += amount
                 break
-            case 'second' || 'seconds':
+            case 'second':
+            case 'seconds':
                 unixMs += amount * 1000
                 break
-            case 'minute' || 'minutes':
+            case 'minute':
+            case 'minutes':
                 unixMs += amount * 1000 * 60
                 break
-            case 'day' || 'days':
+            case 'day':
+            case 'days':
                 unixMs += amount * 1000 * 60 * 60 * 24
+                break
+            case 'week':
+            case 'weeks':
+                unixMs += amount * 1000 * 60 * 60 * 24 * 7
                 break
             default:
                 throw Error('unimplemented')
         }
-        return new Instant(new Date(unixMs).toISOString())
+        return new Instant(new Date(unixMs).toString())
     }
 
     minus(amount: number, units: UnitSingular | UnitPlural): Instant {
@@ -96,7 +105,7 @@ class Instant {
                 d.setMilliseconds(0)
                 break
         }
-        return new Instant(d.toISOString())
+        return new Instant(d.toString())
     }
 }
 
