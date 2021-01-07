@@ -43,16 +43,16 @@ class Instant {
     plus(amount: number, units: UnitSingular | UnitPlural): Instant {
         let unixMs = this.unix()
         switch (units) {
-            case 'milliseconds':
+            case 'millisecond' || 'milliseconds':
                 unixMs += amount
                 break
-            case 'seconds':
+            case 'second' || 'seconds':
                 unixMs += amount * 1000
                 break
-            case 'minutes':
+            case 'minute' || 'minutes':
                 unixMs += amount * 1000 * 60
                 break
-            case 'days':
+            case 'day' || 'days':
                 unixMs += amount * 1000 * 60 * 60 * 24
                 break
             default:
