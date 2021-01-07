@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "outDir": "dist",
+      "target": "ES2020",
+      "module": "ES2020",
+      "moduleResolution": "node",
+      "lib": ["ES6"]
+    },
+    "include": [
+      "index.ts"
+    ]
+  }

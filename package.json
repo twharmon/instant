@@ -1,0 +1,29 @@
+{
+  "name": "@twharmon/instant",
+  "version": "0.0.3",
+  "description": "Date and time handling library",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register src/**/*.test.ts",
+    "pub" : "tsc --declaration && npm publish && rm -rf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/twharmon/instant"
+  },
+  "keywords": [
+    "date",
+    "time",
+    "instant"
+  ],
+  "author": "twharmon",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.2.0",
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}
