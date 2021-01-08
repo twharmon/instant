@@ -1,5 +1,5 @@
 # Instant
-Immutable datetime objects that wrap the native Date class. This package is a work in progress and can throw 'unimplemented' errors.
+Immutable datetime objects that wrap the native Date class. This package is a work in progress.
 
 ## Usage
 ```ts

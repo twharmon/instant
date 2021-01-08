@@ -15,6 +15,11 @@ class Instant {
 
     private date: Date
 
+    private static fromDate(d: Date): Instant {
+        if (isNaN(d.getTime())) return new Instant('foo')
+        return new Instant(d.toISOString())
+    }
+
     unix(): number {
         return this.date.getTime()
     }
@@ -41,6 +46,40 @@ class Instant {
     }
 
     plus(amount: number, units: UnitSingular | UnitPlural): Instant {
+        switch (units) {
+            case 'year':
+            case 'years':
+                var d = new Date(this.date)
+                d.setFullYear(d.getFullYear() + amount)
+                return Instant.fromDate(d)
+            case 'month':
+            case 'months':
+                var d = new Date(this.date)
+                if (amount > 0) {
+                    while (amount > 12) {
+                        d.setFullYear(d.getFullYear() + 1)
+                        amount -= 12
+                    }
+                    if (d.getMonth() + amount > 12) {
+                        d.setFullYear(d.getFullYear() + 1)
+                        d.setMonth((d.getMonth() + amount) % 12)
+                    } else {
+                        d.setMonth(d.getMonth() + amount)
+                    }
+                } else {
+                    while (amount < -12) {
+                        d.setFullYear(d.getFullYear() - 1)
+                        amount += 12
+                    }
+                    if (d.getMonth() + amount < 0) {
+                        d.setFullYear(d.getFullYear() - 1)
+                        d.setMonth((12 + d.getMonth()) + amount)
+                    } else {
+                        d.setMonth(d.getMonth() + amount)
+                    }
+                }
+                return Instant.fromDate(d)
+        }
         let unixMs = this.unix()
         switch (units) {
             case 'millisecond':
@@ -55,6 +94,10 @@ class Instant {
             case 'minutes':
                 unixMs += amount * 1000 * 60
                 break
+            case 'hour':
+            case 'hours':
+                unixMs += amount * 1000 * 60 * 60
+                break
             case 'day':
             case 'days':
                 unixMs += amount * 1000 * 60 * 60 * 24
@@ -64,13 +107,25 @@ class Instant {
                 unixMs += amount * 1000 * 60 * 60 * 24 * 7
                 break
             default:
-                throw Error('unimplemented')
+                throw Error('Invalid units')
         }
-        return new Instant(new Date(unixMs).toString())
+        return Instant.fromDate(new Date(unixMs))
     }
 
     minus(amount: number, units: UnitSingular | UnitPlural): Instant {
         return this.plus(amount * -1, units)
+    }
+
+    isAfter(instant: Instant): boolean {
+        return this.unix() > instant.unix()
+    }
+
+    isBefore(instant: Instant): boolean {
+        return this.unix() < instant.unix()
+    }
+
+    isEqual(instant: Instant): boolean {
+        return this.unix() === instant.unix()
     }
 
     startOf(unit: UnitSingular): Instant {
@@ -105,7 +160,7 @@ class Instant {
                 d.setMilliseconds(0)
                 break
         }
-        return new Instant(d.toString())
+        return Instant.fromDate(d)
     }
 }
 

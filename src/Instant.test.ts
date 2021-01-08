@@ -67,6 +67,30 @@ describe('Instant addition and subtraction', () => {
         expect(b.format('D')).to.equal('12')
     })
 
+    it('adds minutes', () => {
+        const a = new Instant('2020-03-07T11:17:42-00:00')
+        const b = a.plus(5, 'minutes')
+        expect(b.format('m')).to.equal('22')
+    })
+
+    it('adds hours', () => {
+        const a = new Instant('2020-03-07T11:17:42-00:00')
+        const b = a.plus(5, 'hours')
+        expect(b.format('H')).to.equal('10')
+    })
+
+    it('adds seconds', () => {
+        const a = new Instant('2020-03-07T11:17:42-00:00')
+        const b = a.plus(5, 'seconds')
+        expect(b.format('s')).to.equal('47')
+    })
+
+    it('adds milliseconds', () => {
+        const a = new Instant('2020-03-07T11:17:42.000-00:00')
+        const b = a.plus(5, 'milliseconds')
+        expect(b.format('SSS')).to.equal('005')
+    })
+
     it('subtracts weeks', () => {
         const a = new Instant('2020-03-27T11:17:42-00:00')
         const b = a.minus(2, 'weeks')
@@ -79,6 +103,31 @@ describe('Instant addition and subtraction', () => {
         const b = a.startOf('day')
         expect(a.format('h')).to.equal('5')
         expect(b.format('h')).to.equal('12')
+    })
+
+    it('subtracts year', () => {
+        const a = new Instant('2020-01-27T11:17:42-00:00')
+        const b = a.minus(5, 'year')
+        expect(a.format('YYYY')).to.equal('2020')
+        expect(b.format('YYYY')).to.equal('2015')
+    })
+
+    it('subtracts month', () => {
+        const a = new Instant('2020-01-27T11:17:42-00:00')
+        const b = a.minus(5, 'month')
+        expect(b.format('MMM YYYY')).to.equal('Aug 2019')
+    })
+
+    it('adds months to future year', () => {
+        const a = new Instant('2020-12-27T11:17:42-00:00')
+        const b = a.plus(62, 'months')
+        expect(b.format('MMM YYYY')).to.equal('Feb 2026')
+    })
+
+    it('subtracts months to past year', () => {
+        const a = new Instant('2020-01-27T11:17:42-00:00')
+        const b = a.minus(61, 'months')
+        expect(b.format('MMM YYYY')).to.equal('Dec 2014')
     })
 
     it('isNaN when invalid', () => {
