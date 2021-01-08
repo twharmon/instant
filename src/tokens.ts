@@ -2,12 +2,12 @@ import { formatMonth, pad, getHours12 } from './utils'
 
 export const RFC3339 = 'YYYY-MM-DDTHH:mm:ss.SSSZ'
 
-interface TokenRule {
+interface InstantTokenRule {
     token: string
     format: (date: Date) => string
 }
 
-export const rules: TokenRule[] = [
+export const INSTANT_TOKEN_RULES: InstantTokenRule[] = [
     { token: 'YYYY', format: (date: Date): string => date.getFullYear().toString() },
     { token: 'YY', format: (date: Date): string => (date.getFullYear() % 100).toString() },
 

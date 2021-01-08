@@ -1,4 +1,19 @@
-import Instant from './src/Instant'
-export { RFC3339 } from './src/tokens'
+export { Instant } from './src/Instant'
 
-export default Instant
+export {
+    Duration,
+
+    Unit,
+    UnitSingular,
+    UnitPlural,
+
+    FixedUnit,
+    FixedUnitSingular,
+    FixedUnitPlural,
+
+    VariableUnit,
+    VariableUnitSingular,
+    VariableUnitPlural,
+} from './src/Duration'
+
+export { RFC3339 } from './src/tokens'
