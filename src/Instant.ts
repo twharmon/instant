@@ -29,6 +29,12 @@ export class Instant {
 
     format(fmt: string): string {
         if (!this.isValid()) return 'Invalid Instant'
+        if (fmt === 'ago') {
+            const now = new Instant()
+            const dur = now.since(this)
+            if (dur.seconds() < 10) return 'just now'
+            return `${dur.humanize()} ago`
+        }
         let out = ''
         while (fmt.length > 0) {
             let found = false
@@ -51,7 +57,7 @@ export class Instant {
     plus(amount: number, units: Unit): Instant
     plus(duration: Duration): Instant
     plus(amount: number | Duration, units?: any): Instant {
-        if (typeof units === 'string' && typeof amount === 'number') {
+        if (typeof amount === 'number') {
             switch (units) {
                 case 'year':
                 case 'years':

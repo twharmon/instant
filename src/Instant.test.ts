@@ -49,6 +49,19 @@ describe('Instant.format', () => {
     assertFormat('2020-03-07T11:17:17.123-00:00', 'a', 'am')
     assertFormat('2020-03-07T21:17:17.123-00:00', 'A', 'PM')
 
+    // ago
+    assertFormat(new Instant().minus(1, 'year').format(RFC3339), 'ago', '1 year ago')
+    assertFormat(new Instant().minus(10, 'years').format(RFC3339), 'ago', '10 years ago')
+    assertFormat(new Instant().minus(4.5, 'weeks').format(RFC3339), 'ago', '1 month ago')
+    assertFormat(new Instant().minus(13, 'weeks').format(RFC3339), 'ago', '3 months ago')
+    assertFormat(new Instant().minus(1, 'day').format(RFC3339), 'ago', '1 day ago')
+    assertFormat(new Instant().minus(10, 'days').format(RFC3339), 'ago', '10 days ago')
+    assertFormat(new Instant().minus(1, 'hour').format(RFC3339), 'ago', '1 hour ago')
+    assertFormat(new Instant().minus(10, 'hours').format(RFC3339), 'ago', '10 hours ago')
+    assertFormat(new Instant().minus(1, 'minute').format(RFC3339), 'ago', '1 minute ago')
+    assertFormat(new Instant().minus(10, 'minutes').format(RFC3339), 'ago', '10 minutes ago')
+    assertFormat(new Instant().minus(1, 'second').format(RFC3339), 'ago', 'just now')
+
     // complex
     assertFormat('2020-03-07T11:17:42-00:00', 'MMM D', 'Mar 7')
     assertFormat('2020-03-07T11:17:42-00:00', 'MMM D, YYYY', 'Mar 7, 2020')
