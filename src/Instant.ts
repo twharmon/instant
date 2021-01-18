@@ -1,5 +1,6 @@
 import { INSTANT_TOKEN_RULES } from './tokens'
 import { Duration, Unit, UnitSingular, FixedUnit, VariableUnit } from './Duration'
+import { formatMonth } from './utils'
 
 export class Instant {
     constructor(str?: string)
@@ -201,6 +202,10 @@ export class Instant {
 
     until(instant: Instant): Duration {
         return new Duration(instant.unix() - this.unix(), 'milliseconds')
+    }
+
+    nativeDate(): Date {
+        return new Date(this.date)
     }
 
     private plusFixedUnit(amount: number, units: FixedUnit): Instant {
