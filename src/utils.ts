@@ -29,3 +29,25 @@ export function getHours12(date: Date): number {
     if (mod === 0) return 12
     return mod
 }
+
+export function daysInMonth(month: number, year: number): number {
+    switch (month) {
+        case 0: return 31
+        case 1: 
+            if (year % 4 !== 0) return 28
+            if (year % 100 !== 0) return 29
+            if (year % 400 === 0) return 29
+            return 28
+        case 2: return 31
+        case 3: return 30
+        case 4: return 31
+        case 5: return 30
+        case 6: return 31
+        case 7: return 31
+        case 8: return 30
+        case 9: return 31
+        case 10: return 30
+        case 11: return 31
+    }
+    return -1
+}

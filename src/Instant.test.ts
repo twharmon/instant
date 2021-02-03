@@ -246,6 +246,30 @@ describe('Instant.endOf', () => {
         expect(b.format('MMM D, YYYY HH:mm:ss.SSS')).to.equal('Mar 31, 2020 23:59:59.999')
     })
 
+    it('month; February; leap year', () => {
+        const a = new Instant('2020-02-03T11:17:42.123-00:00')
+        const b = a.endOf('month')
+        expect(b.format('MMM D, YYYY HH:mm:ss.SSS')).to.equal('Feb 29, 2020 23:59:59.999')
+    })
+
+    it('month; February; non-leap year', () => {
+        const a = new Instant('2021-02-03T11:17:42.123-00:00')
+        const b = a.endOf('month')
+        expect(b.format('MMM D, YYYY HH:mm:ss.SSS')).to.equal('Feb 28, 2021 23:59:59.999')
+    })
+
+    it('month; February; non-leap year; end of century; div by 400', () => {
+        const a = new Instant('2000-02-03T11:17:42.123-00:00')
+        const b = a.endOf('month')
+        expect(b.format('MMM D, YYYY HH:mm:ss.SSS')).to.equal('Feb 29, 2000 23:59:59.999')
+    })
+
+    it('month; February; non-leap year; end of century; not div by 400', () => {
+        const a = new Instant('1900-02-03T11:17:42.123-00:00')
+        const b = a.endOf('month')
+        expect(b.format('MMM D, YYYY HH:mm:ss.SSS')).to.equal('Feb 28, 1900 23:59:59.999')
+    })
+
     it('week', () => {
         const a = new Instant('2020-03-30T11:17:42.123-00:00')
         const b = a.endOf('week')

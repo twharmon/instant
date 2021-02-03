@@ -1,6 +1,6 @@
 import { INSTANT_TOKEN_RULES } from './tokens'
 import { Duration, Unit, UnitSingular, FixedUnit, VariableUnit } from './Duration'
-import { formatMonth } from './utils'
+import { daysInMonth, formatMonth } from './utils'
 
 export class Instant {
     constructor(str?: string)
@@ -179,7 +179,8 @@ export class Instant {
                 d.setMilliseconds(999)
                 return new Instant(d)
             case 'month':
-                d.setDate(31)
+                const newDate = daysInMonth(d.getMonth(), d.getFullYear())
+                d.setDate(newDate)
                 d.setHours(23)
                 d.setMinutes(59)
                 d.setSeconds(59)
